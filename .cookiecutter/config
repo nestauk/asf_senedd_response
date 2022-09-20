@@ -1,0 +1,5 @@
+# Change these at your peril:
+export PROJECT_NAME=asf_senedd_response
+export REPO_NAME=asf_senedd_response
+export DESCRIPTION=Analysis for A Sustainable Future's response to the Welsh Senedd's call for evidence on decarbonising homes s in August 2022.
+export PROJECT_OPENNESS=public
