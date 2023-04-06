@@ -1,0 +1,12 @@
+numpy
+scipy
+pandas
+matplotlib
+altair
+tqdm
+filelock
+typer
+sh
+asf_core_data@ git+ssh://git@github.com/nestauk/asf_core_data.git
+altair_saver
+selenium
