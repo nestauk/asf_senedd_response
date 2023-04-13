@@ -1,7 +1,8 @@
 from asf_senedd_response.getters.loading import load_wales_df, load_wales_hp
-from asf_senedd_response.pipeline.plotting import generic_plot
+from asf_senedd_response.pipeline.augmenting import generate_age_data
+from asf_senedd_response.pipeline.plotting import generic_plot, age_prop_chart
 
-wales_df = load_wales_df()
+wales_df = load_wales_df(from_csv=False)
 wales_hp = load_wales_hp(wales_df)
 
 
@@ -16,16 +17,36 @@ print(
 )
 print(wales_hp.TENURE.value_counts(normalize=True))
 
-good_props = wales_df.loc[
-    wales_df.CURRENT_ENERGY_RATING.isin(["A", "B", "C"])
-    & wales_df.WALLS_ENERGY_EFF.isin(["Good", "Very Good"])
-    & wales_df.FLOOR_ENERGY_EFF.isin(["Good", "Very Good"])
+epc_c_or_above_and_good_walls = wales_df.loc[
+    wales_df["CURRENT_ENERGY_RATING"].isin(["A", "B", "C"])
+    & wales_df["WALLS_ENERGY_EFF"].isin(["Good", "Very Good"])
 ]
+
+epc_c_or_above_and_good_walls_and_roof = epc_c_or_above_and_good_walls.loc[
+    epc_c_or_above_and_good_walls["ROOF_ENERGY_EFF"].isin(["Good", "Very Good"])
+]
+
 print(
-    "Number of EPC C+ properties with good or very good wall and floor insulation:",
-    len(good_props),
+    "Number of EPC C+ properties with good or very good wall insulation:",
+    len(epc_c_or_above_and_good_walls),
 )
-print("As a proportion of properties in EPC:", len(good_props) / len(wales_df))
+print(
+    "As a proportion of properties in EPC:",
+    len(epc_c_or_above_and_good_walls) / len(wales_df),
+)
+
+print(
+    "\nNumber of EPC C+ properties with good or very good wall and roof insulation:",
+    len(epc_c_or_above_and_good_walls_and_roof),
+)
+print(
+    "As a proportion of properties in EPC:",
+    len(epc_c_or_above_and_good_walls_and_roof) / len(wales_df),
+)
+
+new_good = epc_c_or_above_and_good_walls.loc[
+    epc_c_or_above_and_good_walls.INSPECTION_DATE > "2022-04-01"
+]
 
 # Tenure of Welsh HPs
 generic_plot(
@@ -79,6 +100,11 @@ generic_plot(
     "Percentage of properties",
     filename="epc_hp_private_retrofit",
     x_type="other",
+)
+
+age_data = generate_age_data(wales_df)
+age_prop_chart(
+    age_data, "Fig. 9: Construction age bands and energy efficiencies", "age_prop"
 )
 
 
@@ -160,4 +186,11 @@ generic_plot(
     filename="epc_hp_private_retrofit_welsh",
     x_type="other",
     language="welsh",
+)
+
+# Ages and EPC ratings
+age_prop_chart(
+    age_data,
+    "Ffig. 9: Bandiau oedran adeiladu ac effeithlonrwydd ynni",
+    "age_prop_welsh",
 )

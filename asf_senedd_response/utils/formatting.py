@@ -1,49 +1,16 @@
 import re
 
-# Fonts and colours
-FONT = "Averta"
-TITLE_FONT = "Averta"
-FONTSIZE_TITLE = 16
-FONTSIZE_SUBTITLE = 13
-FONTSIZE_NORMAL = 13
-
-NESTA_COLOURS = [
-    "#0000FF",
-    "#18A48C",
-    "#9A1BBE",
-    "#EB003B",
-    "#FF6E47",
-    "#646363",
-    "#0F294A",
-    "#97D9E3",
-    "#A59BEE",
-    "#F6A4B7",
-    "#FDB633",
-    "#D2C9C0",
-    "#FFFFFF",
-    "#000000",
-]
-
-
-def nestafont():
-    """Define Nesta fonts"""
-    return {
-        "config": {
-            "title": {"font": TITLE_FONT, "anchor": "start"},
-            "axis": {"labelFont": FONT, "titleFont": FONT},
-            "header": {"labelFont": FONT, "titleFont": FONT},
-            "legend": {"labelFont": FONT, "titleFont": FONT},
-            "range": {
-                "category": NESTA_COLOURS,
-                "ordinal": {
-                    "scheme": NESTA_COLOURS
-                },  # this will interpolate the colors
-            },
-        }
-    }
-
 
 def format_number(n):
+    """
+    If number is 5 or more digits, add a comma every 3 digits from the right.
+
+    Args:
+        n (int): Number to format.
+
+    Returns:
+        str: Formatted number.
+    """
     if n > 9999:
         return re.sub(r"(\d)(?=(\d{3})+(?!\d))", r"\1,", str(n))
     else:
