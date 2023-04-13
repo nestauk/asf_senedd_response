@@ -1,3 +1,8 @@
+# File: asf_senedd_response/getters/loading.py
+"""
+For loading of raw data.
+"""
+
 from asf_core_data.getters.epc import epc_data
 import pandas as pd
 
@@ -6,6 +11,16 @@ wales_epc_path = "inputs/data/wales_epc.csv"
 
 
 def load_wales_df(from_csv=True):
+    """Load preprocessed and deduplicated EPC dataset for Wales.
+    If data is loaded from all-GB file, the filtered version is saved to csv
+    for easier future loading.
+
+    Args:
+        from_csv (bool, optional): Whether to load from saved CSV. Defaults to True.
+
+    Returns:
+        pd.DataFrame: EPC data.
+    """
     if from_csv:
         wales_epc = pd.read_csv(wales_epc_path)
     else:
@@ -50,6 +65,14 @@ def load_wales_df(from_csv=True):
 
 
 def load_wales_hp(wales_epc):
+    """Load Welsh EPC data filtered to properties with heat pumps.
+
+    Args:
+        wales_epc (pd.DataFrame): Wales EPC data.
+
+    Returns:
+        pd.DataFrame: EPC data filtered to properties with heat pumps.
+    """
     wales_hp = wales_epc.loc[wales_epc.HP_INSTALLED].reset_index(drop=True)
 
     return wales_hp

@@ -1,3 +1,8 @@
+# File: asf_senedd_response/pipeline/plotting.py
+"""
+Defines plotting functions.
+"""
+
 import pandas as pd
 import altair as alt
 import matplotlib.pyplot as plt
@@ -26,18 +31,20 @@ def generic_plot(
     x_type="good",
     language="english",
 ):
-    """Create a generic bar chart
+    """Create a generic bar chart of proportions of properties in a given category.
 
     Args:
-        base_data (_type_): _description_
-        field (_type_): _description_
-        title (_type_): _description_
-        x_label (_type_): _description_
-        y_label (_type_): _description_
-        filename (_type_): _description_
-        expand_y (bool, optional): _description_. Defaults to False.
-        x_type (str, optional): _description_. Defaults to "good".
-        language (str, optional): _description_. Defaults to "english".
+        base_data (pd.DataFrame): EPC data.
+        field (str): Feature name.
+        title (str): Chart title.
+        x_label (str): x axis label.
+        y_label (str): y axis label.
+        filename (str): Filename.
+        expand_y (bool, optional): Whether to extend the y axis beyond altair's default. Defaults to False.
+        x_type (str, optional): Type of x variable (to control formatting).
+            Can be "good" (insulation quality), "tenure", or otherwise assumed to be A-G energy efficiencies.
+            Defaults to "good".
+        language (str, optional): Language of chart text. Defaults to "english".
     """
     source = pd.DataFrame({"count": base_data[field].value_counts()}).reset_index()
 
@@ -96,9 +103,17 @@ colors = [
 
 
 def age_prop_chart(base_data, title, filename, language="english"):
+    """Create single-column bar chart with property ages, proportions and average energy efficiencies.
+
+    Args:
+        base_data (pd.DataFrame): EPC data.
+        title (str): Chart title.
+        filename (str): Filename.
+        language (str, optional): Language of chart text. Defaults to "english".
+    """
 
     text_labels = [
-        "Mean energy efficiency: " + str(val)
+        energy_efficiency_text[language] + str(val)
         for val in base_data["CURRENT_ENERGY_EFFICIENCY"]
     ]
     prop_labels = [str(round(val, 1)) + "%" for val in base_data["proportion"]]
@@ -130,7 +145,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
 
     ax.set_ylim(0, 100)
     ax.yaxis.set_major_formatter(mtick.PercentFormatter(100))
-    ax.set_ylabel("Percentage of Welsh housing stock", fontweight="bold", fontsize=12)
+    ax.set_ylabel(housing_stock_text[language], fontweight="bold", fontsize=12)
     ax.set_title(title, fontweight="bold", fontsize=14, pad=20)
 
     box = ax.get_position()
@@ -143,7 +158,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
         loc="upper right",
         bbox_to_anchor=(1.6, 1),
         fontsize=10,
-        title="Age band",
+        title=age_band_text[language],
         title_fontproperties={"weight": "bold"},
     )
 

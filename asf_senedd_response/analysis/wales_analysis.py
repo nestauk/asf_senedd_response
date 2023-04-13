@@ -1,3 +1,8 @@
+# File: asf_senedd_response/analysis/wales_analysis.py
+"""
+Script to generate stats and charts.
+"""
+
 from asf_senedd_response.getters.loading import load_wales_df, load_wales_hp
 from asf_senedd_response.pipeline.augmenting import generate_age_data
 from asf_senedd_response.pipeline.plotting import generic_plot, age_prop_chart
@@ -125,7 +130,7 @@ welsh_replacements = {
     },
 }
 
-for df in [wales_df, wales_hp]:
+for df in [wales_df, wales_hp, age_data]:
     for col in ["TENURE", "CONSTRUCTION_AGE_BAND"]:
         if col in df.columns:
             df[col] = df[col].replace(welsh_replacements[col])
@@ -193,4 +198,5 @@ age_prop_chart(
     age_data,
     "Ffig. 9: Bandiau oedran adeiladu ac effeithlonrwydd ynni",
     "age_prop_welsh",
+    language="welsh",
 )
