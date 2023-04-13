@@ -21,6 +21,13 @@ This repo contains code for producing charts for ASF's August 2022 response to t
 
 - Change `LOCAL_DATA_DIR` in `getters/loading.py` to your local EPC data directory.
 
+- Run `python analysis/wales_analysis.py`. This should generate 10 plots, five in each of `outputs/figures/english/` and `outputs/figures/welsh/`:
+  - `age_prop.png`
+  - `epc_all.html`
+  - `epc_hp_private_retrofit.html`
+  - `epc_hp_private.html`
+  - `hp_tenure.html`
+
 Note: no syncing of data from S3 is required as only EPC data is used here.
 
 ## Contributor guidelines
