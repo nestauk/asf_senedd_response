@@ -30,6 +30,25 @@ This repo contains code for producing charts for ASF's August 2022 response to t
 
 Note: no syncing of data from S3 is required as only EPC data is used here.
 
+## Skeleton folder structure
+
+```
+asf_senedd_response/
+├─ analysis/
+│  ├─ wales_analysis.py - produces plots and stats
+├─ getters/
+│  ├─ loading.py - getters for raw data
+├─ pipeline/
+│  ├─ augmenting.py - functions to process and enhance raw data
+│  ├─ plotting.py - generic plotting functions
+├─ utils/
+│  ├─ formatting.py - formatting numbers for plots
+outputs/
+├─ figures/
+│  ├─ english/ - English-language charts
+│  ├─ welsh/ - Welsh-language charts
+```
+
 ## Contributor guidelines
 
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
