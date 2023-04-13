@@ -19,6 +19,10 @@ This repo contains code for producing charts for ASF's August 2022 response to t
 
   - Follow the instructions here - you may just need to run `conda install -c conda-forge vega-cli vega-lite-cli`
 
+- Change `LOCAL_DATA_DIR` in `getters/loading.py` to your local EPC data directory.
+
+Note: no syncing of data from S3 is required as only EPC data is used here.
+
 ## Contributor guidelines
 
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
