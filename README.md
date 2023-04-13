@@ -21,7 +21,7 @@ This repo contains code for producing charts for ASF's August 2022 response to t
 
 - Change `LOCAL_DATA_DIR` in `getters/loading.py` to your local EPC data directory.
 
-- Run `python analysis/wales_analysis.py`. This should generate 10 plots, five in each of `outputs/figures/english/` and `outputs/figures/welsh/`:
+- Run `python python asf_senedd_response/analysis/wales_analysis.py`. This should generate 10 plots, five in each of `outputs/figures/english/` and `outputs/figures/welsh/`:
   - `age_prop.png`
   - `epc_all.html`
   - `epc_hp_private_retrofit.html`
