@@ -5,9 +5,11 @@ For loading of raw data.
 
 from asf_core_data.getters.epc import epc_data
 import pandas as pd
+import os
 
 LOCAL_DATA_DIR = "/Users/chris.williamson/Documents/ASF_data/"
-wales_epc_path = "inputs/data/wales_epc.csv"
+input_data_path = "inputs/data/"
+wales_epc_path = "wales_epc.csv"
 
 
 def load_wales_df(from_csv=True):
@@ -59,7 +61,10 @@ def load_wales_df(from_csv=True):
             & (wales_epc.TRANSACTION_TYPE == "new dwelling")
         ] = "2007 onwards"
 
-        wales_epc.to_csv(wales_epc_path)
+        if not os.path.isdir(input_data_path):
+            os.makedirs(input_data_path)
+
+        wales_epc.to_csv(input_data_path + wales_epc_path)
 
     return wales_epc
 

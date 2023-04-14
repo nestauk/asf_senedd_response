@@ -10,7 +10,7 @@ This repo contains code for producing charts for ASF's August 2022 response to t
 - Navigate to the repo folder
 - Run `direnv allow`
 - Checkout the correct branch if not working on dev
-- Try `make install`, but this old repo predates some cookiecutter functionality so it might not work. If it doesn't then just create the conda environment manually: `conda create --name asf_senedd_response python=3`, `conda activate asf_senedd_response`, `pip install -r requirements.txt requirements_dev.txt`
+- Try `make install`, but this old repo predates some cookiecutter functionality so it might not work. If it doesn't then just create the conda environment manually: `conda create --name asf_senedd_response python=3.8`, `conda activate asf_senedd_response`, `pip install -r requirements.txt requirements_dev.txt`
 - Perform additional setup in order to save plots:
 
   - Follow the instructions here - you may just need to run `conda install -c conda-forge vega-cli vega-lite-cli`
