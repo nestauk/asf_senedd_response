@@ -8,20 +8,16 @@ This repo contains code for producing charts for ASF's August 2022 response to t
   - Install: `direnv` and `conda`
 - Clone the repo: `git clone git@github.com:nestauk/asf_senedd_response.git`
 - Navigate to the repo folder
-- Checkout the correct branch if not working on dev
-- Run `make install` to configure the development environment:
-  - Setup the conda environment
-  - Configure `pre-commit`
 - Run `direnv allow`
-- Activate conda environment: `conda activate asf_senedd_response`
-- Install requirements: `pip install -r requirements.txt`
+- Checkout the correct branch if not working on dev
+- Try `make install`, but this old repo predates some cookiecutter functionality so it might not work. If it doesn't then just create the conda environment manually: `conda create --name asf_senedd_response python=3`, `conda activate asf_senedd_response`, `pip install -r requirements.txt requirements_dev.txt`
 - Perform additional setup in order to save plots:
 
   - Follow the instructions here - you may just need to run `conda install -c conda-forge vega-cli vega-lite-cli`
 
 - Change `LOCAL_DATA_DIR` in `getters/loading.py` to your local EPC data directory.
 
-- Run `python python asf_senedd_response/analysis/wales_analysis.py`. This should generate 10 plots, five in each of `outputs/figures/english/` and `outputs/figures/welsh/`:
+- Run `python asf_senedd_response/analysis/wales_analysis.py`. This should generate 10 plots, five in each of `outputs/figures/english/` and `outputs/figures/welsh/`:
   - `age_prop.png`
   - `epc_all.html`
   - `epc_hp_private_retrofit.html`
