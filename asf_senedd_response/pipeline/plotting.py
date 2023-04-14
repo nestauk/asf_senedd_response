@@ -7,6 +7,7 @@ import pandas as pd
 import altair as alt
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
+import os
 
 from asf_senedd_response.config.base_config import *
 from nesta_ds_utils.viz.altair.formatting import setup_theme
@@ -16,6 +17,10 @@ fig_output_path = {
     "english": "outputs/figures/english/",
     "welsh": "outputs/figures/welsh/",
 }
+
+for file_path in fig_output_path.values():
+    if not os.path.isdir(file_path):
+        os.makedirs(file_path)
 
 setup_theme()
 
