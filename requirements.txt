@@ -11,3 +11,4 @@ asf_core_data@ git+ssh://git@github.com/nestauk/asf_core_data.git
 nesta_ds_utils@ git+ssh://git@github.com/nestauk/nesta_ds_utils.git
 altair_saver
 selenium==4.2.0
+pyyaml
