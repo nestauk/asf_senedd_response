@@ -85,7 +85,7 @@ def proportions_bar_chart(
             else title[:-1]
             + [title[-1] + " (N = " + format_number(len(base_data)) + ")"],
         )
-    )
+    ).configure_title(fontSize=20)
 
     chart.save(fig_output_path[language] + filename + ".html")
 
@@ -122,7 +122,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
         energy_efficiency_text[language] + str(val)
         for val in base_data["CURRENT_ENERGY_EFFICIENCY"]
     ]
-    prop_labels = [str(round(val, 1)) + "%" for val in base_data["proportion"]]
+    prop_labels = [str(round(val, 1)) + "%" for val in base_data["percentage"]]
     width = 1
 
     fig, ax = plt.subplots()
@@ -134,7 +134,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
     # create initial bar
     ax.bar(
         x=" ",
-        height=base_data.loc[0, "proportion"],
+        height=base_data.loc[0, "percentage"],
         width=width,
         label=base_data.loc[0, "CONSTRUCTION_AGE_BAND"],
         color=colors[0],
@@ -144,7 +144,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
     for i in range(1, len(colors)):
         ax.bar(
             x=" ",
-            y=base_data.loc[i, "proportion"],
+            height=base_data.loc[i, "percentage"],
             width=width,
             bottom=base_data.loc[i - 1, "cumul_prop"],
             label=base_data.loc[i, "CONSTRUCTION_AGE_BAND"],

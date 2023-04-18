@@ -60,7 +60,7 @@ proportions_bar_chart(
     filename="hp_tenure",
     x_type="tenure",
     expand_y=True,
-).configure_title(fontSize=20)
+)
 
 # EPC, all
 proportions_bar_chart(
@@ -72,7 +72,7 @@ proportions_bar_chart(
     "Percentage of properties",
     filename="epc_all",
     x_type="other",
-).configure_title(fontSize=20)
+)
 
 # EPC, private sector with HPs
 proportions_bar_chart(
@@ -86,7 +86,7 @@ proportions_bar_chart(
     "Percentage of properties",
     filename="epc_hp_private",
     x_type="other",
-).configure_title(fontSize=20)
+)
 
 # EPCs, private sector with retrofitted HPs
 proportions_bar_chart(
@@ -103,7 +103,7 @@ proportions_bar_chart(
     "Percentage of properties",
     filename="epc_hp_private_retrofit",
     x_type="other",
-).configure_title(fontSize=20)
+)
 
 age_data = generate_age_data(wales_df)
 age_prop_chart(
