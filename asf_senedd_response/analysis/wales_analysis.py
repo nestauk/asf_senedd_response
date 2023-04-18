@@ -17,7 +17,7 @@ wales_hp = load_wales_hp(wales_df)
 print("Number of heat pumps:", len(wales_hp))
 print("Number of properties in EPC:", len(wales_df))
 print(
-    "Estimated proportion of properties with a heat pump:",
+    "Estimated percentage of properties with a heat pump:",
     "{:.2%}".format(len(wales_hp) / len(wales_df)),
 )
 print(wales_hp.TENURE.value_counts(normalize=True))
@@ -49,46 +49,44 @@ print(
     len(epc_c_or_above_and_good_walls_and_roof) / len(wales_df),
 )
 
-new_good = epc_c_or_above_and_good_walls.loc[
-    epc_c_or_above_and_good_walls.INSPECTION_DATE > "2022-04-01"
-]
 
 # Tenure of Welsh HPs
 proportions_bar_chart(
     wales_hp,
     "TENURE",
-    "Fig. 4: Tenure of Welsh properties with heat pumps",
+    "Fig. 3: Tenure of Welsh properties with heat pumps",
     "Tenure",
     "Percentage of properties",
     filename="hp_tenure",
     x_type="tenure",
     expand_y=True,
-)
+).configure_title(fontSize=20)
 
 # EPC, all
 proportions_bar_chart(
+    # only one unknown EPC property so fine to just remove it
     wales_df.loc[wales_df.CURRENT_ENERGY_RATING != "unknown"],
     "CURRENT_ENERGY_RATING",
-    "Fig. 6: EPC ratings of all Welsh properties",
+    "Fig. 5: EPC ratings of all Welsh properties",
     "Energy efficiency rating",
     "Percentage of properties",
     filename="epc_all",
     x_type="other",
-)
+).configure_title(fontSize=20)
 
 # EPC, private sector with HPs
 proportions_bar_chart(
     wales_hp.loc[wales_hp.TENURE.isin(["Owner-occupied", "Privately rented"])],
     "CURRENT_ENERGY_RATING",
     [
-        "Fig. 7: EPC ratings of owner-occupied and privately rented",
+        "Fig. 6: EPC ratings of owner-occupied and privately rented",
         "Welsh properties with heat pumps",
     ],
     "Energy efficiency rating",
     "Percentage of properties",
     filename="epc_hp_private",
     x_type="other",
-)
+).configure_title(fontSize=20)
 
 # EPCs, private sector with retrofitted HPs
 proportions_bar_chart(
@@ -98,14 +96,14 @@ proportions_bar_chart(
     ],
     "CURRENT_ENERGY_RATING",
     [
-        "Fig. 8: EPC ratings of owner-occupied and privately rented",
+        "Fig. 7: EPC ratings of owner-occupied and privately rented",
         "Welsh properties with heat pumps, built pre-2007",
     ],
     "Energy efficiency rating",
     "Percentage of properties",
     filename="epc_hp_private_retrofit",
     x_type="other",
-)
+).configure_title(fontSize=20)
 
 age_data = generate_age_data(wales_df)
 age_prop_chart(
