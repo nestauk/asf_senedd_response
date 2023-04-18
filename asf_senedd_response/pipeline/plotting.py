@@ -25,7 +25,7 @@ for file_path in fig_output_path.values():
 setup_theme()
 
 
-def generic_plot(
+def proportions_bar_chart(
     base_data,
     field,
     title,
@@ -70,7 +70,7 @@ def generic_plot(
         .encode(
             x=alt.X("index", sort=order, title=x_label, axis=alt.Axis(labelAngle=0)),
             y=alt.Y(
-                "PercentOfTotal:Q",
+                shorthand="PercentOfTotal:Q",
                 axis=alt.Axis(format=".0%"),
                 title=y_label,
                 scale=alt.Scale(domain=[0, 0.5]) if expand_y == True else alt.Scale(),
@@ -79,6 +79,7 @@ def generic_plot(
         .properties(
             width=500,
             height=300,
+            # add N to title (just append to end if string, otherwise append to last in list of strings)
             title=title + " (N = " + format_number(len(base_data)) + ")"
             if type(title) == str
             else title[:-1]
@@ -130,29 +131,33 @@ def age_prop_chart(base_data, title, filename, language="english"):
     ax.spines["right"].set_visible(False)
     ax.spines["bottom"].set_visible(False)
 
+    # create initial bar
     ax.bar(
-        " ",
-        base_data.loc[0, "proportion"],
-        width,
+        x=" ",
+        height=base_data.loc[0, "proportion"],
+        width=width,
         label=base_data.loc[0, "CONSTRUCTION_AGE_BAND"],
         color=colors[0],
     )
 
-    for i in range(1, 11):
+    # plot remaining bars on top
+    for i in range(1, len(colors)):
         ax.bar(
-            " ",
-            base_data.loc[i, "proportion"],
-            width,
+            x=" ",
+            y=base_data.loc[i, "proportion"],
+            width=width,
             bottom=base_data.loc[i - 1, "cumul_prop"],
             label=base_data.loc[i, "CONSTRUCTION_AGE_BAND"],
             color=colors[i],
         )
 
+    # format y axis
     ax.set_ylim(0, 100)
     ax.yaxis.set_major_formatter(mtick.PercentFormatter(100))
     ax.set_ylabel(housing_stock_text[language], fontweight="bold", fontsize=12)
     ax.set_title(title, fontweight="bold", fontsize=14, pad=20)
 
+    # put legend in top right
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
@@ -167,6 +172,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
         title_fontproperties={"weight": "bold"},
     )
 
+    # put text in centres of bars
     rects = ax.patches
 
     for rect, label in zip(rects, text_labels):
@@ -192,6 +198,7 @@ def age_prop_chart(base_data, title, filename, language="english"):
             fontsize=12,
         )
 
+    # format axes
     plt.tick_params(
         axis="x",  # changes apply to the x-axis
         which="both",  # both major and minor ticks are affected

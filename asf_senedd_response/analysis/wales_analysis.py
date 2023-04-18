@@ -5,7 +5,7 @@ Script to generate stats and charts.
 
 from asf_senedd_response.getters.loading import load_wales_df, load_wales_hp
 from asf_senedd_response.pipeline.augmenting import generate_age_data
-from asf_senedd_response.pipeline.plotting import generic_plot, age_prop_chart
+from asf_senedd_response.pipeline.plotting import proportions_bar_chart, age_prop_chart
 
 wales_df = load_wales_df(from_csv=False)
 wales_hp = load_wales_hp(wales_df)
@@ -54,7 +54,7 @@ new_good = epc_c_or_above_and_good_walls.loc[
 ]
 
 # Tenure of Welsh HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp,
     "TENURE",
     "Fig. 4: Tenure of Welsh properties with heat pumps",
@@ -66,7 +66,7 @@ generic_plot(
 )
 
 # EPC, all
-generic_plot(
+proportions_bar_chart(
     wales_df.loc[wales_df.CURRENT_ENERGY_RATING != "unknown"],
     "CURRENT_ENERGY_RATING",
     "Fig. 6: EPC ratings of all Welsh properties",
@@ -77,7 +77,7 @@ generic_plot(
 )
 
 # EPC, private sector with HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp.loc[wales_hp.TENURE.isin(["Owner-occupied", "Privately rented"])],
     "CURRENT_ENERGY_RATING",
     [
@@ -91,7 +91,7 @@ generic_plot(
 )
 
 # EPCs, private sector with retrofitted HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp.loc[
         wales_hp.TENURE.isin(["Owner-occupied", "Privately rented"])
         & (wales_hp.CONSTRUCTION_AGE_BAND != "2007 onwards")
@@ -136,7 +136,7 @@ for df in [wales_df, wales_hp, age_data]:
             df[col] = df[col].replace(welsh_replacements[col])
 
 # Tenure of Welsh HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp,
     "TENURE",
     "Ffig. 4: Deiliadaeth eiddo â phympiau gwres yng Nghymru",
@@ -149,7 +149,7 @@ generic_plot(
 )
 
 # EPC, all
-generic_plot(
+proportions_bar_chart(
     wales_df.loc[wales_df.CURRENT_ENERGY_RATING != "unknown"],
     "CURRENT_ENERGY_RATING",
     "Ffig. 6: Sgoriau EPC holl eiddo Cymru",
@@ -161,7 +161,7 @@ generic_plot(
 )
 
 # EPC, private sector with HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp.loc[wales_hp.TENURE.isin(["Perchen-feddiannaeth", "Rhentu preifat"])],
     "CURRENT_ENERGY_RATING",
     [
@@ -176,7 +176,7 @@ generic_plot(
 )
 
 # EPCs, private sector with retrofitted HPs
-generic_plot(
+proportions_bar_chart(
     wales_hp.loc[
         wales_hp.TENURE.isin(["Perchen-feddiannaeth", "Rhentu preifat"])
         & (wales_hp.CONSTRUCTION_AGE_BAND != "2007 ymlaen")

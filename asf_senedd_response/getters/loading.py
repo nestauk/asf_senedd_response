@@ -56,6 +56,8 @@ def load_wales_df(from_csv=True):
                 "unknown": "Unknown",
             }
         )
+        # if CONSTRUCTION_AGE_BAND is unknown and TRANSACTION_TYPE is new dwelling,
+        # assume construction age is >2007 because EPCs started in 2008
         wales_epc["CONSTRUCTION_AGE_BAND"].loc[
             (wales_epc.CONSTRUCTION_AGE_BAND == "unknown")
             & (wales_epc.TRANSACTION_TYPE == "new dwelling")
