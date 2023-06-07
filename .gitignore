@@ -124,3 +124,8 @@ target/
 
 # NPM
 node_modules/
+
+outputs/figures/english/*.html
+outputs/figures/welsh/*.html
+outputs/figures/english/*.png
+outputs/figures/welsh/*.png
